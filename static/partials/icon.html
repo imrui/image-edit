@@ -6,8 +6,34 @@
 </section>
 
 <section class="content">
-  <div class="callout callout-info">
-    <h4>Tip!</h4>
-    <p>Tip content</p>
+  <div class="row">
+    <div class="col-sm-4">
+      <strong>上传icon</strong>
+      <div class="icon-item">
+        <img ng-src="/upload/icon/{{icon}}">
+      </div>
+      <div>
+        <span class="btn btn-success fileinput-button">
+          <i class="glyphicon glyphicon-plus"></i>
+          <span>选择并上传icon</span>
+          <input id="file-upload-icon" class="cls-file-upload" type="file" name="icon" data-url="/upload_to/icon" multiple="">
+        </span>
+        <p class="help-block">建议512*512的png文件</p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <strong>上传角标</strong>
+      <div class="icon-item">
+        <img ng-src="/upload/subscript/{{subscript}}">
+      </div>
+      <div>
+        <span class="btn btn-success fileinput-button">
+          <i class="glyphicon glyphicon-plus"></i>
+          <span>选择并上传角标</span>
+          <input id="file-upload-subscript" class="cls-file-upload" type="file" name="icon" data-url="/upload_to/subscript" multiple="">
+        </span>
+        <p class="help-block">建议512*512的png文件</p>
+      </div>
+    </div>
   </div>
 </section>

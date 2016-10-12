@@ -7,7 +7,7 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 from tornado.options import define, options
-from handlers.site_handler import SiteHandler
+from handlers.site_handler import SiteHandler, UploadHandler, DisplayHandler
 
 
 define('debug', default=True, type=bool)
@@ -19,6 +19,9 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r'/', SiteHandler, {'path': os.path.join(os.path.dirname(__file__), 'static/starter.html')}),
+            (r"/upload/(.*)", tornado.web.StaticFileHandler, {'path': os.path.join(os.path.dirname(__file__), 'upload')}),
+            (r'/upload_to/(?P<category>\w+)', UploadHandler),
+            (r'/display/(?P<category>\w+)', DisplayHandler),
         ]
         settings = dict(
             static_path=os.path.join(os.path.dirname(__file__), 'static'),
