@@ -2,7 +2,6 @@
 import os
 import uuid
 import tornado.web
-from tornado.web import HTTPError
 from tornado.httputil import HTTPHeaders, _parse_header
 from handlers.base_handler import BaseHandler
 from werkzeug.utils import secure_filename
@@ -29,8 +28,6 @@ class UploadHandler(BaseHandler):
     """
     only one file can upload
     """
-    current_dir = os.path.dirname(os.path.dirname(__file__))
-
     def __init__(self, application, request, **kwargs):
         super().__init__(application, request, **kwargs)
         self.filename = ''
@@ -69,8 +66,7 @@ class UploadHandler(BaseHandler):
                 filename = disp_params["filename"]
                 ext = filename.split('.')[-1]
                 self.filename = filename
-                self.temp_file_path = os.path.join(self.current_dir, 'tmp',
-                                                   'uploading_file_%s.%s' % (str(uuid.uuid4()), ext))
+                self.temp_file_path = os.path.join(self.tmp_path, 'uploading_file_%s.%s' % (str(uuid.uuid4()), ext))
                 self.file = open(self.temp_file_path, 'wb')
         e = chunk.rfind(self.final_boundary_index)
         if e == -1:
@@ -95,7 +91,7 @@ class UploadHandler(BaseHandler):
     def uploaded_done(self):
         category = self.path_kwargs.get('category')
         directory = str(uuid.uuid4())
-        to = os.path.join(self.current_dir, 'upload', category, directory)
+        to = os.path.join(self.media_path, 'upload', category, directory)
         if not os.path.exists(to):
             os.makedirs(to)
         filename = secure_filename(self.filename)
@@ -108,11 +104,3 @@ class UploadHandler(BaseHandler):
             self.file.close()
         if self.temp_file_path and os.path.exists(self.temp_file_path):
             os.remove(self.temp_file_path)
-
-
-class DisplayHandler(BaseHandler):
-
-    def get(self, category):
-        file_path = self.get_cookie(category)
-        status = 200 if file_path else 404
-        self.render_obj(dict(category=category, filePath=file_path), status)

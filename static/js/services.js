@@ -1,6 +1,6 @@
 var imageServices = angular.module('imageServices', ['ngResource']);
 
-imageServices.factory('Icon', ['$resource',
+imageServices.factory('IconMerge', ['$resource',
   function ($resource) {
-    return $resource('/icon');
+    return $resource('/icon/merge');
   }]);

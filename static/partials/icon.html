@@ -7,10 +7,10 @@
 
 <section class="content">
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <strong>上传icon</strong>
       <div class="icon-item">
-        <img ng-src="/upload/icon/{{icon}}">
+        <img ng-src="/media/upload/icon/{{icon}}">
       </div>
       <div>
         <span class="btn btn-success fileinput-button">
@@ -21,10 +21,10 @@
         <p class="help-block">建议512*512的png文件</p>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <strong>上传角标</strong>
       <div class="icon-item">
-        <img ng-src="/upload/subscript/{{subscript}}">
+        <img ng-src="/media/upload/subscript/{{subscript}}">
       </div>
       <div>
         <span class="btn btn-success fileinput-button">
@@ -35,5 +35,39 @@
         <p class="help-block">建议512*512的png文件</p>
       </div>
     </div>
+    <div class="col-sm-3">
+      <strong>设备类型</strong>
+      <div class="form-group">
+        <select class="form-control" ng-model="info.os" ng-options="option.name for option in osOptions track by option.id" ng-change="changeOsType()"></select>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" ng-click="iconMerge()">生成图标</button>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-success" ng-click="iconDownload()">全部下载</button>
+      </div>
+    </div>
   </div>
+  <div class="row">
+    <div ng-repeat="d in iconSet">
+      <div class="col-sm-3">
+        <div class="icon-item">
+          <img ng-src="/media/icons/{{}}">
+        </div>
+        <p class="help-block">{{ d.filename }}</p>
+        <p class="help-block">size: {{ d.size }}</p>
+      </div>
+    </div>
+  </div>
+  <!--<div class="row">-->
+    <!--<div ng-repeat="d in appIconSet.ios">-->
+      <!--<div class="col-sm-3">-->
+        <!--<div class="icon-item">-->
+          <!--<img ng-src="/media/icons/{{}}">-->
+        <!--</div>-->
+        <!--<p class="help-block">{{ d.filename }}</p>-->
+        <!--<p class="help-block">Ios size: {{ d.size }}</p>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 </section>

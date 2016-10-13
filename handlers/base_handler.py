@@ -13,6 +13,18 @@ class BaseHandler(tornado.web.RequestHandler):
     def data_received(self, chunk):
         pass
 
+    @property
+    def media_path(self):
+        return self.application.media_path
+
+    @property
+    def tmp_path(self):
+        return self.application.tmp_path
+
+    @property
+    def app_icon_set(self):
+        return self.application.settings.get('app_icon_set')
+
     def get_current_user(self):
         return self.get_secure_cookie('username')
 

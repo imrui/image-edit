@@ -7,24 +7,30 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 from tornado.options import define, options
-from handlers.site_handler import SiteHandler, UploadHandler, DisplayHandler
+from handlers.site_handler import SiteHandler, UploadHandler
+from handlers.image_handler import AppIconSetHandler, IconMergeHandler
 
 
 define('debug', default=True, type=bool)
 define('port', default=8080, type=int, help='run on the given port')
+define('app_icon_set', type=dict)
 
 
 class Application(tornado.web.Application):
 
     def __init__(self):
+        root_path = os.path.dirname(__file__)
+        self.tmp_path = os.path.join(root_path, 'tmp')
+        self.media_path = os.path.join(root_path, 'media')
         handlers = [
             (r'/', SiteHandler, {'path': os.path.join(os.path.dirname(__file__), 'static/starter.html')}),
-            (r"/upload/(.*)", tornado.web.StaticFileHandler, {'path': os.path.join(os.path.dirname(__file__), 'upload')}),
+            (r"/media/(.*)", tornado.web.StaticFileHandler, {'path': self.media_path}),
             (r'/upload_to/(?P<category>\w+)', UploadHandler),
-            (r'/display/(?P<category>\w+)', DisplayHandler),
+            (r'/app/icon/set', AppIconSetHandler),
+            (r'/icon/merge', IconMergeHandler),
         ]
         settings = dict(
-            static_path=os.path.join(os.path.dirname(__file__), 'static'),
+            static_path=os.path.join(root_path, 'static'),
             xsrf_cookies=False,
             cookie_secret='VAgYv0fQ5KLKdVUH7OlGHUTkOq9DZbSY',
         )

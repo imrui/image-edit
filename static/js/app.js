@@ -7,6 +7,10 @@ var imageApp = angular.module('imageApp', [
 
 imageApp.controller('MainCtrl', ['$scope', '$cookies', '$filter', '$http', '$log',
   function ($scope, $cookies, $filter, $http, $log) {
+    $http.get('/app/icon/set').success(function(data) {
+      $scope.appIconSet = data;
+      $log.debug($scope.appIconSet);
+    });
     $scope.afterUpload = function (data) {
       $log.debug(data);
       var category = data.category;
@@ -18,7 +22,7 @@ imageApp.controller('MainCtrl', ['$scope', '$cookies', '$filter', '$http', '$log
     $scope.refreshImage = function (category) {
       var filePath = $cookies.get(category);
       if (filePath) {
-        $log.debug(filePath);
+        $log.debug(category, filePath);
         $scope[category] = filePath;
       }
     }
