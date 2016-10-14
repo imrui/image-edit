@@ -38,6 +38,8 @@ class Application(tornado.web.Application):
         )
         if not options.debug:
             settings['cookie_secret'] = str(uuid.uuid4())
+        if not os.path.exists(self.tmp_path):
+            os.makedirs(self.tmp_path)
         settings.update(options.as_dict())
         super(Application, self).__init__(handlers, **settings)
 

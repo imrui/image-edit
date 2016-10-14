@@ -32,6 +32,9 @@
           <span>选择并上传角标</span>
           <input id="file-upload-subscript" class="cls-file-upload" type="file" name="icon" data-url="/upload_to/subscript" multiple="">
         </span>
+        <a href="javascript:;" class="icon-del">
+          <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+        </a>
         <p class="help-block">建议512*512的png文件</p>
       </div>
     </div>
@@ -43,22 +46,23 @@
       <div class="form-group">
         <button type="button" class="btn btn-primary" ng-click="iconMerge()">生成图标</button>
       </div>
-      <div class="form-group">
-        <button type="button" class="btn btn-success" ng-click="iconDownload()">全部下载</button>
+      <div ng-show="iconsPath" class="form-group">
+        <a class="btn btn-success" href="{{ downloadHost }}/media/icons/{{ info.os.id }}/{{ iconsPath }}.zip">下载全部(zip)</a>
       </div>
     </div>
   </div>
   <div class="row">
     <div ng-repeat="d in iconSet">
-      <a href="{{ downloadHost }}/media/icons/{{ info.os.id }}/{{ iconsPath }}/{{ d.filename }}">
       <div class="icon-item">
         <div class="icon icon-sm">
           <img ng-src="/media/icons/{{ info.os.id }}/{{ iconsPath }}/{{ d.filename }}">
         </div>
         <p class="help-block">{{ d.filename }}</p>
-        <p class="help-block">size: {{ d.size }}</p>
+        <p class="help-block">size: {{ d.size }}
+          <a ng-show="iconsPath" href="{{ downloadHost }}/media/icons/{{ info.os.id }}/{{ iconsPath }}/{{ d.filename }}"><i class="glyphicon glyphicon-download-alt"></i></a>
+        </p>
+        <!--<p ng-hide="iconsPath" class="help-block">size: {{ d.size }}</p>-->
       </div>
-      </a>
     </div>
   </div>
 </section>

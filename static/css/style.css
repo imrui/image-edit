@@ -4,7 +4,7 @@
 }
 .icon-item {
     float: left;
-    margin: 2px 2px 2px 2px;
+    margin: 2px;
 }
 .icon-lg img {
     width: 150px;
@@ -13,4 +13,7 @@
 .icon-sm img {
     width: 100px;
     height: 100px;
+}
+.icon-del {
+    margin: 10px;
 }

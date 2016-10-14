@@ -26,6 +26,8 @@ imageControllers.controller('IconCtrl', ['$scope', '$log', 'IconMerge',
       },
       done: function (e, data) {
         $scope.afterUpload(data.result);
+        $scope.removeImgCookies('icons-' + $scope.osOptions[0].id);
+        $scope.removeImgCookies('icons-' + $scope.osOptions[1].id);
         $scope.iconsPath = '';
         $scope.$apply();
       }
@@ -64,10 +66,6 @@ imageControllers.controller('IconCtrl', ['$scope', '$log', 'IconMerge',
         $scope.setImgCookies('icons-' + param.os, data.fp);
         refreshIcons();
       });
-    };
-    $scope.iconDownload = function () {
-      $log.debug($scope.icon);
-      $log.debug($scope.subscript);
     };
   }]);
 
