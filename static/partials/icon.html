@@ -9,8 +9,8 @@
   <div class="row">
     <div class="col-sm-3">
       <strong>上传icon</strong>
-      <div class="icon-item">
-        <img ng-src="/media/upload/icon/{{icon}}">
+      <div class="icon icon-lg">
+        <img ng-src="/media/upload/icon/{{ icon }}">
       </div>
       <div>
         <span class="btn btn-success fileinput-button">
@@ -23,8 +23,8 @@
     </div>
     <div class="col-sm-3">
       <strong>上传角标</strong>
-      <div class="icon-item">
-        <img ng-src="/media/upload/subscript/{{subscript}}">
+      <div class="icon icon-lg">
+        <img ng-src="/media/upload/subscript/{{ subscript }}">
       </div>
       <div>
         <span class="btn btn-success fileinput-button">
@@ -50,24 +50,15 @@
   </div>
   <div class="row">
     <div ng-repeat="d in iconSet">
-      <div class="col-sm-3">
-        <div class="icon-item">
-          <img ng-src="/media/icons/{{}}">
+      <a href="{{ downloadHost }}/media/icons/{{ info.os.id }}/{{ iconsPath }}/{{ d.filename }}">
+      <div class="icon-item">
+        <div class="icon icon-sm">
+          <img ng-src="/media/icons/{{ info.os.id }}/{{ iconsPath }}/{{ d.filename }}">
         </div>
         <p class="help-block">{{ d.filename }}</p>
         <p class="help-block">size: {{ d.size }}</p>
       </div>
+      </a>
     </div>
   </div>
-  <!--<div class="row">-->
-    <!--<div ng-repeat="d in appIconSet.ios">-->
-      <!--<div class="col-sm-3">-->
-        <!--<div class="icon-item">-->
-          <!--<img ng-src="/media/icons/{{}}">-->
-        <!--</div>-->
-        <!--<p class="help-block">{{ d.filename }}</p>-->
-        <!--<p class="help-block">Ios size: {{ d.size }}</p>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
 </section>

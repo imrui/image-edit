@@ -1,8 +1,16 @@
-.icon-item {
+.icon {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-.icon-item img {
+.icon-item {
+    float: left;
+    margin: 2px 2px 2px 2px;
+}
+.icon-lg img {
     width: 150px;
     height: 150px;
+}
+.icon-sm img {
+    width: 100px;
+    height: 100px;
 }

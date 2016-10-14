@@ -8,8 +8,11 @@ var imageApp = angular.module('imageApp', [
 imageApp.controller('MainCtrl', ['$scope', '$cookies', '$filter', '$http', '$log',
   function ($scope, $cookies, $filter, $http, $log) {
     $http.get('/app/icon/set').success(function(data) {
-      $scope.appIconSet = data;
+      $scope.downloadHost = data.downloadHost;
+      $scope.appIconSet = data.appIconSet;
+      $log.debug($scope.downloadHost);
       $log.debug($scope.appIconSet);
+      $scope.$broadcast('on_finish_app_icon_set');
     });
     $scope.afterUpload = function (data) {
       $log.debug(data);
@@ -25,7 +28,16 @@ imageApp.controller('MainCtrl', ['$scope', '$cookies', '$filter', '$http', '$log
         $log.debug(category, filePath);
         $scope[category] = filePath;
       }
-    }
+    };
+    $scope.setImgCookies = function (key, value) {
+      $cookies.put(key, value);
+    };
+    $scope.getImgCookies = function (key) {
+      return $cookies.get(key);
+    };
+    $scope.removeImgCookies = function (key) {
+      return $cookies.remove(key);
+    };
   }]);
 
 imageApp.config(['$routeProvider', '$httpProvider', '$logProvider',

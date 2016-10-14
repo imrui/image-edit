@@ -90,8 +90,8 @@ class UploadHandler(BaseHandler):
 
     def uploaded_done(self):
         category = self.path_kwargs.get('category')
-        directory = str(uuid.uuid4())
-        to = os.path.join(self.media_path, 'upload', category, directory)
+        directory = str(uuid.uuid1().time)
+        to = os.path.join(self.upload_path, category, directory)
         if not os.path.exists(to):
             os.makedirs(to)
         filename = secure_filename(self.filename)

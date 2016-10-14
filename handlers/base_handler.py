@@ -18,6 +18,10 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.application.media_path
 
     @property
+    def upload_path(self):
+        return self.application.upload_path
+
+    @property
     def tmp_path(self):
         return self.application.tmp_path
 

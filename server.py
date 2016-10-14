@@ -14,6 +14,7 @@ from handlers.image_handler import AppIconSetHandler, IconMergeHandler
 define('debug', default=True, type=bool)
 define('port', default=8080, type=int, help='run on the given port')
 define('app_icon_set', type=dict)
+define('download_host', type=str)
 
 
 class Application(tornado.web.Application):
@@ -22,6 +23,7 @@ class Application(tornado.web.Application):
         root_path = os.path.dirname(__file__)
         self.tmp_path = os.path.join(root_path, 'tmp')
         self.media_path = os.path.join(root_path, 'media')
+        self.upload_path = os.path.join(self.media_path, 'upload')
         handlers = [
             (r'/', SiteHandler, {'path': os.path.join(os.path.dirname(__file__), 'static/starter.html')}),
             (r"/media/(.*)", tornado.web.StaticFileHandler, {'path': self.media_path}),
