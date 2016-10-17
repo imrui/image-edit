@@ -10,7 +10,8 @@
     <div class="col-sm-3">
       <strong>上传icon</strong>
       <div class="icon icon-lg">
-        <img ng-src="/media/upload/icon/{{ icon }}">
+        <img ng-if="icon" ng-src="/media/upload/icon/{{ icon }}">
+        <img ng-if="!icon" ng-src="">
       </div>
       <div>
         <span class="btn btn-success fileinput-button">
@@ -24,15 +25,16 @@
     <div class="col-sm-3">
       <strong>上传角标</strong>
       <div class="icon icon-lg">
-        <img ng-src="/media/upload/subscript/{{ subscript }}">
+        <img ng-if="subscript" ng-src="/media/upload/subscript/{{ subscript }}">
+        <img ng-if="!subscript" src="">
       </div>
       <div>
         <span class="btn btn-success fileinput-button">
           <i class="glyphicon glyphicon-plus"></i>
           <span>选择并上传角标</span>
-          <input id="file-upload-subscript" class="cls-file-upload" type="file" name="icon" data-url="/upload_to/subscript" multiple="">
+          <input id="file-upload-subscript" class="cls-file-upload" type="file" name="subscript" data-url="/upload_to/subscript" multiple="">
         </span>
-        <a href="javascript:;" class="icon-del">
+        <a href="javascript:;" class="icon-del" ng-click="delSubscript()">
           <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
         </a>
         <p class="help-block">建议512*512的png文件</p>
@@ -55,13 +57,13 @@
     <div ng-repeat="d in iconSet">
       <div class="icon-item">
         <div class="icon icon-sm">
-          <img ng-src="/media/icons/{{ info.os.id }}/{{ iconsPath }}/{{ d.filename }}">
+          <img ng-if="iconsPath" ng-src="/media/icons/{{ info.os.id }}/{{ iconsPath }}/{{ d.filename }}">
+          <img ng-if="!iconsPath" src="">
         </div>
         <p class="help-block">{{ d.filename }}</p>
         <p class="help-block">size: {{ d.size }}
           <a ng-show="iconsPath" href="{{ downloadHost }}/media/icons/{{ info.os.id }}/{{ iconsPath }}/{{ d.filename }}"><i class="glyphicon glyphicon-download-alt"></i></a>
         </p>
-        <!--<p ng-hide="iconsPath" class="help-block">size: {{ d.size }}</p>-->
       </div>
     </div>
   </div>
