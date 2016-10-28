@@ -23,13 +23,13 @@ class IconMergeHandler(BaseHandler):
             if not icon_set or not icon:
                 self.render_obj(dict(code=400, msg='arguments error'))
                 return
-            img_icon, fp_icon = utils.get_upload_image_file(self.upload_path, 'icon', icon)
+            img_icon, fp_icon, _ = utils.get_upload_image_file(self.upload_path, 'icon', icon)
             img_sub, fp_sub = None, ''
             if not img_icon:
                 self.render_obj(dict(code=404, msg='image file not found'))
                 return
             if subscript:
-                img_sub, fp_sub = utils.get_upload_image_file(self.upload_path, 'subscript', subscript)
+                img_sub, fp_sub, _ = utils.get_upload_image_file(self.upload_path, 'subscript', subscript)
                 if not img_sub:
                     self.render_obj(dict(code=404, msg='image file not found'))
                     return
@@ -56,3 +56,55 @@ class IconMergeHandler(BaseHandler):
         except:
             traceback.print_exc()
             self.render_obj(dict(code=500, msg='system error'))
+
+
+class WatermarkHandler(BaseHandler):
+
+    def get(self, *args, **kwargs):
+        image = self.get_argument('image', '')
+        _type = self.get_argument('type', '')
+        pos = self.get_argument('pos', '')
+        if not image or not _type or not pos or _type not in ('txt', 'img'):
+            self.render_obj(dict(code=400, msg='arguments error'))
+            return
+        img_image, fp_image, fn_image = utils.get_upload_image_file(self.upload_path, 'image', image)
+        if not img_image:
+            self.render_obj(dict(code=404, msg='image file not found'))
+            return
+        wm_path = os.path.join(self.media_path, 'watermark', _type)
+        if _type == 'img':
+            mark = self.get_argument('mark', '')
+            if not mark:
+                self.render_obj(dict(code=400, msg='args error: mark'))
+                return
+            img_mark, fp_mark, _ = utils.get_upload_image_file(self.upload_path, 'mark', mark)
+            if not img_mark:
+                self.render_obj(dict(code=404, msg='mark file not found'))
+                return
+            position, img_re_mark = utils.get_mark_position(img_image, img_mark, pos)
+            if not position:
+                self.render_obj(dict(code=404, msg='args error: pos'))
+                return
+            fp = '%s-%s' % (fp_image, fp_mark)
+        elif _type == 'txt':
+            txt = self.get_argument('txt', '')
+            font = self.get_argument('font', '')
+            font_size = int(self.get_argument('fontSize', '24'))
+            font_color = self.get_argument('fontColor', '')
+            if not txt or not font or not font_size or not font_color:
+                self.render_obj(dict(code=400, msg='args error: txt or font setting'))
+                return
+            img_mark = utils.text2img(txt, os.path.join(self.static_path, 'fonts'), font, font_color=font_color, font_size=font_size)
+            fp = fp_image
+        else:
+            self.render_obj(dict(code=404, msg='args error: type'))
+            return
+        position, img_re_mark = utils.get_mark_position(img_image, img_mark, pos)
+        if not position:
+            self.render_obj(dict(code=404, msg='args error: pos'))
+            return
+        fn = '%s-%s' % (pos, fn_image)
+        new_img = utils.img_composite(img_image, img_re_mark, position)
+        new_img_path = os.path.join(wm_path, fp)
+        utils.img_save(new_img, new_img_path, fn)
+        self.render_obj(dict(code=200, msg='success', fp=fp, fn=fn))

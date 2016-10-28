@@ -14,6 +14,10 @@ class BaseHandler(tornado.web.RequestHandler):
         pass
 
     @property
+    def static_path(self):
+        return self.application.static_path
+
+    @property
     def media_path(self):
         return self.application.media_path
 

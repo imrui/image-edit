@@ -8,7 +8,7 @@ import tornado.ioloop
 import tornado.options
 from tornado.options import define, options
 from handlers.site_handler import SiteHandler, UploadHandler
-from handlers.image_handler import AppIconSetHandler, IconMergeHandler
+from handlers.image_handler import AppIconSetHandler, IconMergeHandler, WatermarkHandler
 
 
 define('debug', default=True, type=bool)
@@ -21,15 +21,17 @@ class Application(tornado.web.Application):
 
     def __init__(self):
         root_path = os.path.dirname(__file__)
+        self.static_path = os.path.join(root_path, 'static')
         self.tmp_path = os.path.join(root_path, 'tmp')
         self.media_path = os.path.join(root_path, 'media')
         self.upload_path = os.path.join(self.media_path, 'upload')
         handlers = [
-            (r'/', SiteHandler, {'path': os.path.join(os.path.dirname(__file__), 'static/starter.html')}),
+            (r'/', SiteHandler, {'path': os.path.join(self.static_path, 'starter.html')}),
             (r"/media/(.*)", tornado.web.StaticFileHandler, {'path': self.media_path}),
             (r'/upload_to/(?P<category>\w+)', UploadHandler),
             (r'/app/icon/set', AppIconSetHandler),
             (r'/icon/merge', IconMergeHandler),
+            (r'/watermark', WatermarkHandler),
         ]
         settings = dict(
             static_path=os.path.join(root_path, 'static'),

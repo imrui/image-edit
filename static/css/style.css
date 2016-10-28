@@ -17,3 +17,13 @@
 .icon-del {
     margin: 10px;
 }
+.icon-img-box img {
+    height: 150px;
+}
+.icon-mark-box img {
+    height: 80px;
+}
+.icon-watermark img {
+    /*height: 200px;*/
+    width: 100%;
+}

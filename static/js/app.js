@@ -1,6 +1,7 @@
 var imageApp = angular.module('imageApp', [
   'ngRoute',
   'ngCookies',
+  'colorpicker.module',
   'imageControllers',
   'imageServices'
 ]);
