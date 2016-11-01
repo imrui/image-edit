@@ -101,10 +101,10 @@ imageControllers.controller('WatermarkCtrl', ['$scope', '$log', 'Watermark',
       {id: 'md', name: '中心'}
     ];
     $scope.fontsOptions = [
+      {id: 'Open-Sans.ttf', name: 'Open Sans'},
       {id: 'simsun.ttc', name: '宋体'},
       {id: 'simhei.ttf', name: '黑体'},
       {id: 'simkai.ttf', name: '楷体'},
-      {id: 'Open-Sans.ttf', name: 'Open Sans'},
       {id: 'Roboto.ttf', name: 'Roboto'},
       {id: 'Lato.ttf', name: 'Lato'},
       {id: 'Droid-Sans.ttf', name: 'Droid-Sans'}
