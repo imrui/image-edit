@@ -74,7 +74,6 @@ def get_mark_position(img, mark, pos='rb'):
 
 def text2img(text, font_path, font_name='Lato.tff', font_color='#333333', font_size=24):
     font_file = os.path.join(font_path, font_name)
-    print(font_file)
     font = ImageFont.truetype(font_file, font_size)
     width, height = font.getsize(text)
     mark = Image.new('RGBA', (width, height))
