@@ -97,7 +97,7 @@
             <button type="button" class="btn btn-primary" ng-click="btnWaterMark()">生成水印图片</button>
           </div>
           <div ng-show="imagePath" class="col-sm-2">
-            <a class="btn btn-success" href="{{ downloadHost }}/media/watermark/{{ info.wmt }}/{{ imagePath }}"><i class="glyphicon glyphicon-download-alt"></i>下载图片</a>
+            <a class="btn btn-success" href="/media/watermark/{{ info.wmt }}/{{ imagePath }}"><i class="glyphicon glyphicon-download-alt"></i>下载图片</a>
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@
         <div class="col-sm-12">
           <strong>效果预览</strong>
           <div class="icon icon-watermark">
-            <img ng-if="imagePath" ng-src="{{ downloadHost }}/media/watermark/{{ info.wmt }}/{{ imagePath }}">
+            <img ng-if="imagePath" ng-src="/media/watermark/{{ info.wmt }}/{{ imagePath }}">
             <img ng-if="!imagePath" ng-src="">
           </div>
         </div>

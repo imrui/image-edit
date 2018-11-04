@@ -9,9 +9,7 @@ var imageApp = angular.module('imageApp', [
 imageApp.controller('MainCtrl', ['$scope', '$cookies', '$filter', '$http', '$log',
   function ($scope, $cookies, $filter, $http, $log) {
     $http.get('/app/icon/set').success(function(data) {
-      $scope.downloadHost = data.downloadHost;
       $scope.appIconSet = data.appIconSet;
-      $log.debug($scope.downloadHost);
       $log.debug($scope.appIconSet);
       $scope.$broadcast('on_finish_app_icon_set');
     });

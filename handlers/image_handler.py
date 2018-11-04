@@ -9,7 +9,7 @@ import traceback
 class AppIconSetHandler(BaseHandler):
 
     def get(self, *args, **kwargs):
-        self.render_obj(dict(appIconSet=self.app_icon_set, downloadHost=self.application.settings.get('download_host')))
+        self.render_obj(dict(appIconSet=self.app_icon_set))
 
 
 class IconMergeHandler(BaseHandler):
